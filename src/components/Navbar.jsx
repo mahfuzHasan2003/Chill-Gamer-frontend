@@ -1,11 +1,16 @@
 import { useContext, useState, useRef } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { AuthContext } from "../providers/AuthDataProvider";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
 import Avatar from "@mui/material/Avatar";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
+import { MdMenu } from "react-icons/md";
+import Drawer from "react-modern-drawer";
+import "react-modern-drawer/dist/index.css";
+import { ImCross } from "react-icons/im";
+import "./Navbar.css";
 
 const Navbar = () => {
    const navigate = useNavigate();
@@ -13,19 +18,52 @@ const Navbar = () => {
    const { user } = useContext(AuthContext);
    const [anchorEl, setAnchorEl] = useState(null);
    const openProfile = Boolean(anchorEl);
+   const [isDraweOpen, setIsDraweOpen] = useState(false);
    return (
       <nav className='py-4 flex justify-between items-center'>
-         <span
-            className='font-bold text-3xl cursor-pointer'
-            onClick={() => navigate("/")}>
-            <span className='text-yellow-300'>Chill</span>Gamer
-         </span>
-         <div className='inline-flex gap-4'>
-            <Link to='/'>Home</Link>
-            <Link to='/all-reviews'>All Reviews</Link>
-            {user && <Link to='/add-review'>Add Review</Link>}
-            {user && <Link to='/my-reviews'>My Reviews</Link>}
-            {user && <Link to='/game-watchList'>Game WatchList</Link>}
+         <div className='inline-flex items-center gap-1'>
+            <button
+               className='lg:hidden cursor-pointer'
+               onClick={() => setIsDraweOpen((prevState) => !prevState)}>
+               <MdMenu size={30} />
+            </button>
+            <Drawer
+               open={isDraweOpen}
+               onClose={() => setIsDraweOpen((prevState) => !prevState)}
+               direction='left'
+               lockBackgroundScroll='true'
+               size='200px'
+               className='p-5'>
+               <div className='text-gray-800'>
+                  <button
+                     className='flex justify-end w-full'
+                     onClick={() => setIsDraweOpen((prevState) => !prevState)}>
+                     <ImCross size={25} />
+                  </button>
+                  <div className='mt-10 flex flex-col gap-3 *:px-2'>
+                     <NavLink to='/'>Home</NavLink>
+                     <NavLink to='/all-reviews'>All Reviews</NavLink>
+                     {user && <NavLink to='/add-review'>Add Review</NavLink>}
+                     {user && <NavLink to='/my-reviews'>My Reviews</NavLink>}
+                     {user && (
+                        <NavLink to='/game-watchList'>Game WatchList</NavLink>
+                     )}
+                  </div>
+               </div>
+            </Drawer>
+            <span
+               className='font-bold text-3xl cursor-pointer'
+               onClick={() => navigate("/")}>
+               <span className='text-yellow-300'>Chill</span>Gamer
+            </span>
+         </div>
+
+         <div className='hidden lg:inline-flex gap-3 *:px-2'>
+            <NavLink to='/'>Home</NavLink>
+            <NavLink to='/all-reviews'>All Reviews</NavLink>
+            {user && <NavLink to='/add-review'>Add Review</NavLink>}
+            {user && <NavLink to='/my-reviews'>My Reviews</NavLink>}
+            {user && <NavLink to='/game-watchList'>Game WatchList</NavLink>}
          </div>
          {user ? (
             <div>
@@ -86,7 +124,7 @@ const Navbar = () => {
                      }}>
                      {user?.displayName}
                   </MenuItem>
-                  <MenuItem onClick={() => setAnchorEl(null)}>Profile</MenuItem>
+                  <MenuItem onClick={() => setAnchorEl(null)}>LogOut</MenuItem>
                   <MenuItem onClick={() => setAnchorEl(null)}>
                      My account
                   </MenuItem>
