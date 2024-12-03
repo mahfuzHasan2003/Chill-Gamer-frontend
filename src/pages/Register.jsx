@@ -1,7 +1,7 @@
 import { Divider } from "@mui/material";
 import { useContext } from "react";
 import { AuthContext } from "../providers/AuthDataProvider";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Register = () => {
    const navigate = useNavigate();
@@ -9,23 +9,49 @@ const Register = () => {
       logInWithGoogle,
       error,
       setError,
-      user,
       registerWithEmail,
       updateUserProfile,
+      isValidEmail,
+      isValidPassword,
+      isValidPhotoURL,
    } = useContext(AuthContext);
    const handleRegister = (e) => {
       e.preventDefault();
+      setError("");
       const displayName = e.target.name.value;
       const email = e.target.email.value;
       const photoURL = e.target.photoURL.value;
       const password = e.target.password.value;
       const confirmPassword = e.target.confirmPassword.value;
+      if (!displayName) {
+         setError("Please enter a name");
+         return;
+      }
+      if (!isValidEmail(email)) {
+         setError("Please enter your valid email");
+         return;
+      }
+      if (!isValidPhotoURL(photoURL)) {
+         setError("Please enter your photo url correctly");
+         return;
+      }
+      if (!isValidPassword(password)) {
+         setError(
+            "Password must be have at least one upercase character, one lowercase character, one special character, one digit and length 6"
+         );
+         return;
+      }
+      if (password !== confirmPassword) {
+         setError("Password does not match");
+         return;
+      }
+
       registerWithEmail(email, password)
          .then(() => {
             updateUserProfile({ displayName, photoURL });
             navigate("/");
          })
-         .catch((err) => setError(err));
+         .catch((err) => setError(err.code));
    };
    return (
       <div className='mt-20'>
@@ -70,7 +96,7 @@ const Register = () => {
                   Email<span className='text-red-500'>*</span>
                </label>
                <input
-                  type='email'
+                  type='text'
                   id='email'
                   name='email'
                   placeholder='example@example.com'
@@ -113,13 +139,26 @@ const Register = () => {
                   className='bg-transparent p-2 border rounded-sm'
                />
             </div>
-            <input
-               type='submit'
-               id='submit'
-               name='submit'
-               value='Register'
-               className='bg-gray-100 py-2 border rounded-sm lg:max-w-60 text-primary font-bold md:col-span-2 hover:bg-gray-300 text-lg'
-            />
+            {error && (
+               <p className='text-sm text-red-500 md:col-span-2'>{error}</p>
+            )}
+            <div className='md:col-span-2 md:flex justify-between items-center'>
+               <input
+                  type='submit'
+                  id='submit'
+                  name='submit'
+                  value='Register'
+                  className='bg-gray-100 py-2 border rounded-sm text-primary font-bold hover:bg-gray-300 text-lg min-w-40'
+               />
+               <p className='flex gap-1 mt-5 md:mt-0'>
+                  Already have an account?
+                  <Link
+                     className='text-blue-500 underline font-semibold'
+                     to='/auth/login'>
+                     Login
+                  </Link>
+               </p>
+            </div>
          </form>
       </div>
    );
