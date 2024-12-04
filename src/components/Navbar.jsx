@@ -54,7 +54,7 @@ const Navbar = () => {
             <span
                className='font-bold text-3xl cursor-pointer'
                onClick={() => navigate("/")}>
-               <span className='text-yellow-300'>Chill</span>Gamer
+               <span className='text-green-400'>Chill</span>Gamer
             </span>
          </div>
 
@@ -70,7 +70,7 @@ const Navbar = () => {
                <Tooltip title={`Profile | ${user?.displayName}`}>
                   <IconButton
                      ref={buttonRef}
-                     onClick={(e) => setAnchorEl(buttonRef.current)}
+                     onClick={() => setAnchorEl(buttonRef.current)}
                      size='small'
                      sx={{ ml: 2 }}
                      aria-controls={openProfile ? "account-menu" : undefined}
@@ -137,7 +137,7 @@ const Navbar = () => {
                      Register
                   </button>
                </Link>
-               <Link to='/auth/login'>
+               <Link to='/auth/login' className='hidden md:inline-block'>
                   <button className='border border-gray-100 hover:border-gray-400 px-4 py-1 rounded-sm'>
                      LogIn
                   </button>
