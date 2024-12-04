@@ -29,6 +29,7 @@ const AddReview = () => {
       const newReview = {
          userName: user.displayName,
          userEmail: user.email,
+         userProfile: user.photoURL,
          thumbnailURL,
          gameName,
          gameType,
