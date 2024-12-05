@@ -1,9 +1,8 @@
-import { useContext } from "react";
-import { ReviewContext } from "../providers/ReviewsAuthProvider";
 import SingleReviewCard from "../components/SingleReviewCard";
+import { useLoaderData } from "react-router-dom";
 
 const AllReviews = () => {
-   const { allReviews } = useContext(ReviewContext);
+   const { data: allReviews } = useLoaderData();
    return (
       <div className='my-10'>
          <div className='md:flex justify-between items-center'>

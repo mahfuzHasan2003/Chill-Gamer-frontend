@@ -55,8 +55,8 @@ const SingleReviewCard = ({ review }) => {
                   content={`${rating} out of 5`}
                />
                <p>{userReview.slice(0, 100)}....</p>
-               <Link to='/'>
-                  <button className='px-4 py-2 bg-secondary text-primary rounded-sm mt-3 focus:scale-95'>
+               <Link to={`/review/${_id}`}>
+                  <button className='px-4 py-2 bg-neutral text-primary rounded-sm mt-3 focus:scale-95'>
                      Explore Details
                   </button>
                </Link>

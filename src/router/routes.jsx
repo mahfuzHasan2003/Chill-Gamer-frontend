@@ -8,6 +8,8 @@ import GameWatchList from "../pages/GameWatchList";
 import Register from "../pages/Register";
 import Login from "../pages/Login";
 import PrivateRoute from "../private/PrivateRoute";
+import ReviewDetails from "../pages/ReviewDetails";
+import axios from "axios";
 
 const routes = createBrowserRouter([
    {
@@ -21,6 +23,17 @@ const routes = createBrowserRouter([
          {
             path: "/all-reviews",
             element: <AllReviews />,
+            loader: () => axios.get("http://localhost:3000/reviews"),
+         },
+         {
+            path: "/review/:id",
+            element: (
+               <PrivateRoute>
+                  <ReviewDetails />
+               </PrivateRoute>
+            ),
+            loader: ({ params }) =>
+               axios.get(`http://localhost:3000/review/${params.id}`),
          },
          {
             path: "/add-review",
