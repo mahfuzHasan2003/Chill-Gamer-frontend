@@ -15,7 +15,7 @@ import "./Navbar.css";
 const Navbar = () => {
    const navigate = useNavigate();
    const buttonRef = useRef(null);
-   const { user } = useContext(AuthContext);
+   const { user, logOut } = useContext(AuthContext);
    const [anchorEl, setAnchorEl] = useState(null);
    const openProfile = Boolean(anchorEl);
    const [isDraweOpen, setIsDraweOpen] = useState(false);
@@ -46,7 +46,7 @@ const Navbar = () => {
                      {user && <NavLink to='/add-review'>Add Review</NavLink>}
                      {user && <NavLink to='/my-reviews'>My Reviews</NavLink>}
                      {user && (
-                        <NavLink to='/game-watchList'>Game WatchList</NavLink>
+                        <NavLink to='/my-watchList'>Game WatchList</NavLink>
                      )}
                   </div>
                </div>
@@ -63,7 +63,7 @@ const Navbar = () => {
             <NavLink to='/all-reviews'>All Reviews</NavLink>
             {user && <NavLink to='/add-review'>Add Review</NavLink>}
             {user && <NavLink to='/my-reviews'>My Reviews</NavLink>}
-            {user && <NavLink to='/game-watchList'>Game WatchList</NavLink>}
+            {user && <NavLink to='/my-watchList'>Game WatchList</NavLink>}
          </div>
          {user ? (
             <div>
@@ -79,7 +79,7 @@ const Navbar = () => {
                      <Avatar
                         sx={{ width: 50, height: 50 }}
                         src={user?.photoURL}>
-                        {user?.displayName.slice(0, 1)}
+                        {user?.displayName?.slice(0, 1)}
                      </Avatar>
                   </IconButton>
                </Tooltip>
@@ -124,7 +124,15 @@ const Navbar = () => {
                      }}>
                      {user?.displayName}
                   </MenuItem>
-                  <MenuItem onClick={() => setAnchorEl(null)}>LogOut</MenuItem>
+                  <MenuItem
+                     onClick={() => {
+                        setAnchorEl(null);
+                        logOut()
+                           .then(() => navigate("/"))
+                           .catch((err) => console.error(err));
+                     }}>
+                     LogOut
+                  </MenuItem>
                   <MenuItem onClick={() => setAnchorEl(null)}>
                      My account
                   </MenuItem>

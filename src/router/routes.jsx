@@ -63,7 +63,7 @@ const routes = createBrowserRouter([
                axios.get(`http://localhost:3000/review/${params.id}`),
          },
          {
-            path: "/game-watchList",
+            path: "/my-watchList",
             element: (
                <PrivateRoute>
                   <GameWatchList />

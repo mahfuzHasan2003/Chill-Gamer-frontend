@@ -2,8 +2,11 @@ import { Rating } from "@mui/material";
 import { useLoaderData, useNavigate } from "react-router-dom";
 import { Tooltip } from "react-tooltip";
 import { closeSnackbar, enqueueSnackbar } from "notistack";
+import { useContext } from "react";
+import { AuthContext } from "../providers/AuthDataProvider";
 
 const ReviewDetails = () => {
+   const { user } = useContext(AuthContext);
    const action = (snackbarId) => (
       <button
          className='text-2xl'
@@ -30,10 +33,10 @@ const ReviewDetails = () => {
 
    const handleAddToWatchList = (e) => {
       const newWatchListData = {
-         userEmail,
-         userName,
-         userReview,
+         mail: user.email,
          gameName,
+         rating,
+         gameType,
       };
       fetch("http://localhost:3000/watchList/", {
          method: "POST",
@@ -49,7 +52,7 @@ const ReviewDetails = () => {
                   horizontal: "right",
                },
             });
-            navigate("/all-reviews");
+            navigate("/my-watchList");
          })
          .catch((err) => console.error(err));
    };
