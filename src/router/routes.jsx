@@ -10,6 +10,7 @@ import Login from "../pages/Login";
 import PrivateRoute from "../private/PrivateRoute";
 import ReviewDetails from "../pages/ReviewDetails";
 import axios from "axios";
+import UpdateReview from "../pages/UpdateReview";
 
 const routes = createBrowserRouter([
    {
@@ -50,6 +51,16 @@ const routes = createBrowserRouter([
                   <MyReviews />
                </PrivateRoute>
             ),
+         },
+         {
+            path: "/update-review/:id",
+            element: (
+               <PrivateRoute>
+                  <UpdateReview />
+               </PrivateRoute>
+            ),
+            loader: ({ params }) =>
+               axios.get(`http://localhost:3000/review/${params.id}`),
          },
          {
             path: "/game-watchList",

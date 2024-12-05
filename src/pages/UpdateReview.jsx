@@ -1,14 +1,28 @@
 import { useContext, useState } from "react";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import { AuthContext } from "../providers/AuthDataProvider";
-import { Rating } from "@mui/material";
+import { Rating, Tooltip } from "@mui/material";
 import Swal from "sweetalert2";
 
-const AddReview = () => {
+const UpdateReview = () => {
+   const { data: review } = useLoaderData();
    const { user } = useContext(AuthContext);
    const [error, setError] = useState("");
-   const [rating, setRating] = useState(2.5);
+
+   const {
+      _id,
+      thumbnailURL,
+      gameName,
+      publishingYear,
+      gameType,
+      rating: userRating,
+      review: userReview,
+   } = review;
+   const [rating, setRating] = useState(userRating);
    const handleRatingChange = (e, newRating) => setRating(newRating);
-   const handleAddReview = (e) => {
+   const navigate = useNavigate();
+
+   const handleUpdateReview = (e) => {
       e.preventDefault();
       setError("");
       const thumbnailURL = e.target.thumbnailURL.value;
@@ -26,38 +40,36 @@ const AddReview = () => {
          setError("Please fill out all the fields");
          return;
       }
-      const newReview = {
-         userName: user.displayName,
-         userEmail: user.email,
-         userProfile: user.photoURL,
+      const updatedReview = {
          thumbnailURL,
          gameName,
          gameType,
          publishingYear,
+         review: userReview,
          rating,
-         review,
       };
-      fetch("http://localhost:3000/reviews", {
-         method: "POST",
+      fetch(`http://localhost:3000/review/${_id}`, {
+         method: "PATCH",
          headers: { "content-type": "application/json" },
-         body: JSON.stringify(newReview),
+         body: JSON.stringify(updatedReview),
       })
          .then(() => {
             Swal.fire({
                title: "Yay!",
-               text: "Your Review Added Successfully",
+               text: "Your Review Updated Successfully",
                icon: "success",
             });
             e.target.reset();
+            navigate("/my-reviews");
          })
          .catch((err) => console.error(err));
    };
    return (
       <div className='my-10'>
-         <h2 className='font-semibold text-4xl'>Add Review!!</h2>
+         <h2 className='font-semibold text-4xl'>Update your review!!</h2>
          <form
             className='grid grid-cols-1 md:grid-cols-2 gap-5 mt-10'
-            onSubmit={handleAddReview}>
+            onSubmit={handleUpdateReview}>
             <div className='flex flex-col gap-1'>
                <label htmlFor='username'>User Name</label>
                <input
@@ -88,6 +100,7 @@ const AddReview = () => {
                   type='text'
                   id='thumbnailURL'
                   name='thumbnailURL'
+                  defaultValue={thumbnailURL}
                   placeholder='https://example.com/photo.jpg'
                   className='bg-transparent p-2 border rounded-sm'
                />
@@ -100,6 +113,7 @@ const AddReview = () => {
                   type='text'
                   id='gameName'
                   name='gameName'
+                  defaultValue={gameName}
                   placeholder='PUBG Mobile'
                   className='bg-transparent p-2 border rounded-sm'
                />
@@ -111,6 +125,7 @@ const AddReview = () => {
                <select
                   name='gameType'
                   id='gameType'
+                  value={gameType}
                   className='bg-transparent p-2 border rounded-sm *:text-primary'>
                   <option value='Select One' disabled selected>
                      Select One ..
@@ -130,6 +145,7 @@ const AddReview = () => {
                   type='number'
                   id='publishingYear'
                   name='publishingYear'
+                  defaultValue={publishingYear}
                   placeholder='Publishing Year'
                   className='bg-transparent p-2 border rounded-sm'
                />
@@ -141,6 +157,7 @@ const AddReview = () => {
                <textarea
                   name='review'
                   id='review'
+                  defaultValue={userReview}
                   placeholder='Type your full review here ...'
                   rows={5}
                   className='bg-transparent p-2 border rounded-sm'></textarea>
@@ -159,8 +176,8 @@ const AddReview = () => {
                </div>
                <input
                   type='submit'
-                  value='Add Review'
-                  className='rounded-sm px-10 py-3 bg-gray-200 text-primary font-semibold text-lg mt-5 focus:bg-gray-300 cursor-pointer'
+                  value='Update Review'
+                  className='rounded-sm px-10 py-3 bg-neutral font-semibold text-lg mt-5 cursor-pointer'
                />
                {error && (
                   <p className='text-sm text-red-500 md:col-span-2 mt-5'>
@@ -173,4 +190,4 @@ const AddReview = () => {
    );
 };
 
-export default AddReview;
+export default UpdateReview;

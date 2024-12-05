@@ -2,15 +2,24 @@ import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../providers/AuthDataProvider";
 import { FaEdit, FaTrash } from "react-icons/fa";
+import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const MyReviews = () => {
    const { user } = useContext(AuthContext);
    const [myReviews, setMyReviews] = useState([]);
    useEffect(() => {
       axios
-         .get(`http://localhost:3000/reviews/user/${user.email}`)
+         .get(`http://localhost:3000/my-reviews/user/${user.email}`)
          .then((data) => setMyReviews(data.data));
-   }, [user.email]);
+   }, [user.email, myReviews]);
+   const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+         confirmButton: "btn btn-success",
+         cancelButton: "btn btn-danger",
+      },
+      buttonsStyling: true,
+   });
 
    return (
       <div className='my-10'>
@@ -31,11 +40,54 @@ const MyReviews = () => {
                         <th>{idx + 1}</th>
                         <td>{singleReview.gameName}</td>
                         <td>{singleReview.review.slice(0, 300)}....</td>
-                        <td className='inline-flex gap-3 items-center'>
-                           <button>
-                              <FaEdit size={20} />
-                           </button>
-                           <button>
+                        <td className='inline-flex gap-3 items-center flex-wrap'>
+                           <Link to={`/update-review/${singleReview._id}`}>
+                              <button>
+                                 <FaEdit size={20} />
+                              </button>
+                           </Link>
+                           <button
+                              onClick={() =>
+                                 swalWithBootstrapButtons
+                                    .fire({
+                                       title: "Are you sure?",
+                                       text: "You won't be able to revert this!",
+                                       icon: "warning",
+                                       showCancelButton: true,
+                                       confirmButtonText: "Yes, delete it!",
+                                       cancelButtonText: "No, cancel!",
+                                       reverseButtons: false,
+                                    })
+                                    .then((result) => {
+                                       if (result.isConfirmed) {
+                                          fetch(
+                                             `http://localhost:3000/review/${singleReview._id}`,
+                                             {
+                                                method: "DELETE",
+                                             }
+                                          )
+                                             .then(() => {
+                                                swalWithBootstrapButtons.fire({
+                                                   title: "Deleted!",
+                                                   text: "Your review has been deleted.",
+                                                   icon: "success",
+                                                });
+                                             })
+                                             .catch((err) =>
+                                                console.error(err)
+                                             );
+                                       } else if (
+                                          result.dismiss ===
+                                          Swal.DismissReason.cancel
+                                       ) {
+                                          swalWithBootstrapButtons.fire({
+                                             title: "Cancelled",
+                                             text: "Deletion cancelled",
+                                             icon: "error",
+                                          });
+                                       }
+                                    })
+                              }>
                               <FaTrash size={20} />
                            </button>
                         </td>
