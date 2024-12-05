@@ -11,6 +11,7 @@ import PrivateRoute from "../private/PrivateRoute";
 import ReviewDetails from "../pages/ReviewDetails";
 import axios from "axios";
 import UpdateReview from "../pages/UpdateReview";
+import ErrorPage from "../pages/ErrorPage";
 
 const routes = createBrowserRouter([
    {
@@ -79,6 +80,10 @@ const routes = createBrowserRouter([
             element: <Login />,
          },
       ],
+   },
+   {
+      path: "*",
+      element: <ErrorPage />,
    },
 ]);
 

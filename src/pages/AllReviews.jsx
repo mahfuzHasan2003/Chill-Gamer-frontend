@@ -1,5 +1,7 @@
+import { useState } from "react";
 import SingleReviewCard from "../components/SingleReviewCard";
 import { useLoaderData } from "react-router-dom";
+import Loader from "../components/Loader";
 
 const AllReviews = () => {
    const { data: allReviews } = useLoaderData();
