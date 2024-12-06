@@ -25,7 +25,8 @@ const routes = createBrowserRouter([
          {
             path: "/all-reviews",
             element: <AllReviews />,
-            loader: () => axios.get("http://localhost:3000/reviews"),
+            loader: () =>
+               axios.get("https://chill-gamer-backend.vercel.app/reviews"),
          },
          {
             path: "/review/:id",
@@ -35,7 +36,9 @@ const routes = createBrowserRouter([
                </PrivateRoute>
             ),
             loader: ({ params }) =>
-               axios.get(`http://localhost:3000/review/${params.id}`),
+               axios.get(
+                  `https://chill-gamer-backend.vercel.app/review/${params.id}`
+               ),
          },
          {
             path: "/add-review",
@@ -61,7 +64,9 @@ const routes = createBrowserRouter([
                </PrivateRoute>
             ),
             loader: ({ params }) =>
-               axios.get(`http://localhost:3000/review/${params.id}`),
+               axios.get(
+                  `https://chill-gamer-backend.vercel.app/review/${params.id}`
+               ),
          },
          {
             path: "/my-watchList",

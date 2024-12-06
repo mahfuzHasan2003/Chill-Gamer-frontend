@@ -1,6 +1,5 @@
 import { Outlet } from "react-router-dom";
 import Navbar from "../components/Navbar";
-import Home from "../pages/Home";
 import { SnackbarProvider } from "notistack";
 import { useContext } from "react";
 import { AuthContext } from "../providers/AuthDataProvider";
