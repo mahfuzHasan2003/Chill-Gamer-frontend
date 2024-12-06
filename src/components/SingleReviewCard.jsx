@@ -19,7 +19,6 @@ const SingleReviewCard = ({ review }) => {
          <div className='inline-flex gap-3 items-center'>
             <img
                src={userProfile}
-               alt={userName}
                className='w-10 md:w-14 aspect-square rounded-full border-2 border-secondary'
             />
             <div>
