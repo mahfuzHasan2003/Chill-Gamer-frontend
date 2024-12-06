@@ -20,7 +20,7 @@ const Navbar = () => {
    const openProfile = Boolean(anchorEl);
    const [isDraweOpen, setIsDraweOpen] = useState(false);
    const [theme, setTheme] = useState(
-      JSON.parse(localStorage.getItem("theme"))
+      JSON.parse(localStorage.getItem("theme")) || "halloween"
    );
    useEffect(() => {
       localStorage.setItem("theme", JSON.stringify(theme));
@@ -139,6 +139,7 @@ const Navbar = () => {
                <input
                   type='checkbox'
                   onChange={handleChangeTheme}
+                  checked={theme === "halloween"}
                   className='theme-controller'
                   value='synthwave'
                />
