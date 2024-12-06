@@ -25,8 +25,6 @@ const routes = createBrowserRouter([
          {
             path: "/all-reviews",
             element: <AllReviews />,
-            loader: () =>
-               axios.get("https://chill-gamer-backend.vercel.app/reviews"),
          },
          {
             path: "/review/:id",

@@ -1,8 +1,20 @@
+import { useEffect, useState } from "react";
 import SingleReviewCard from "../components/SingleReviewCard";
-import { useLoaderData } from "react-router-dom";
+import axios from "axios";
+import Loader from "../components/Loader";
 
 const AllReviews = () => {
-   const { data: allReviews } = useLoaderData();
+   const [allReviews, setAllReviews] = useState([]);
+   const [loadingAllReviews, setLoadingAllReviews] = useState(true);
+   useEffect(() => {
+      setTimeout(() => {
+         axios
+            .get("https://chill-gamer-backend.vercel.app/reviews")
+            .then((data) => setAllReviews(data.data))
+            .then(() => setLoadingAllReviews(false));
+      }, 1000);
+   }, []);
+   if (loadingAllReviews) return <Loader />;
    return (
       <div className='my-10'>
          <div className='md:flex justify-between items-center'>
