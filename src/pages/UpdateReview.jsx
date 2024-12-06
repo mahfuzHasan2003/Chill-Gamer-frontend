@@ -78,7 +78,7 @@ const UpdateReview = () => {
                   name='username'
                   value={user?.displayName}
                   disabled
-                  className='bg-gray-700 p-2 border rounded-sm text-gray-400 border-gray-700'
+                  className='bg-gray-600 p-2 border rounded-sm text-gray-400 border-gray-600'
                />
             </div>
             <div className='flex flex-col gap-1'>
@@ -89,7 +89,7 @@ const UpdateReview = () => {
                   name='email'
                   value={user?.email}
                   disabled
-                  className='bg-gray-700 p-2 border rounded-sm text-gray-400 border-gray-700'
+                  className='bg-gray-600 p-2 border rounded-sm text-gray-400 border-gray-600'
                />
             </div>
             <div className='flex flex-col gap-1'>
@@ -126,7 +126,7 @@ const UpdateReview = () => {
                   name='gameType'
                   id='gameType'
                   value={gameType}
-                  className='bg-transparent p-2 border rounded-sm *:text-primary'>
+                  className='bg-transparent p-2 border rounded-sm *:text-neutral'>
                   <option value='Select One' disabled selected>
                      Select One ..
                   </option>
@@ -177,7 +177,7 @@ const UpdateReview = () => {
                <input
                   type='submit'
                   value='Update Review'
-                  className='rounded-sm px-10 py-3 bg-neutral font-semibold text-lg mt-5 cursor-pointer'
+                  className='rounded-sm px-10 py-3 bg-primary text-neutral font-semibold text-lg mt-5 cursor-pointer'
                />
                {error && (
                   <p className='text-sm text-red-500 md:col-span-2 mt-5'>

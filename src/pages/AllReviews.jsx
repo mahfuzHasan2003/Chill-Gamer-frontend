@@ -12,7 +12,7 @@ const AllReviews = () => {
             <div className='text-right'>
                <select
                   name='filterBy'
-                  className='bg-transparent *:text-primary border p-1 md:p-2 outline-none rounded-sm mt-3'>
+                  className='bg-transparent *:text-gray-800 border p-1 md:p-2 outline-none rounded-sm mt-3'>
                   <option value='filter-by' disabled selected>
                      Filter By..
                   </option>

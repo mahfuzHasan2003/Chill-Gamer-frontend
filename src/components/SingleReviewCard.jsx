@@ -19,14 +19,14 @@ const SingleReviewCard = ({ review }) => {
          <div className='inline-flex gap-3 items-center'>
             <img
                src={userProfile}
-               className='w-10 md:w-14 aspect-square rounded-full border-2 border-secondary'
+               className='w-10 md:w-14 aspect-square rounded-full border-2 border-primary'
             />
             <div>
                <h5 className='text-xl font-semibold'>{userName}</h5>
-               <p className='text-xs text-gray-300'>{userEmail}</p>
+               <p className='text-xs'>{userEmail}</p>
             </div>
          </div>
-         <Divider sx={{ borderColor: "#94a3b8", my: 2 }} />
+         <Divider sx={{ borderColor: "gray", my: 2 }} />
          <div className='flex gap-3 md:gap-5'>
             <div className='w-56'>
                <img
@@ -55,7 +55,7 @@ const SingleReviewCard = ({ review }) => {
                />
                <p>{userReview.slice(0, 100)}....</p>
                <Link to={`/review/${_id}`}>
-                  <button className='px-4 py-2 bg-neutral text-primary rounded-sm mt-3 focus:scale-95'>
+                  <button className='px-4 py-2 bg-primary text-neutral rounded-sm mt-3 focus:scale-95'>
                      Explore Details
                   </button>
                </Link>

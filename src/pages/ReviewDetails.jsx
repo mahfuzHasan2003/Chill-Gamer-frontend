@@ -64,7 +64,7 @@ const ReviewDetails = () => {
             <img
                src={userProfile}
                alt={userName}
-               className='w-10 md:w-14 aspect-square rounded-full border-2 border-secondary'
+               className='w-10 md:w-14 aspect-square rounded-full border-2 border-primary'
             />
             <div>
                <h5 className='text-xl font-semibold'>{userName}</h5>
@@ -111,12 +111,10 @@ const ReviewDetails = () => {
             </div>
             <div>
                <p className='text-sm md:text-base font-semibold'>Review:</p>
-               <p className='text-sm md:text-base text-gray-300'>
-                  {userReview}
-               </p>
+               <p className='text-sm md:text-base'>{userReview}</p>
             </div>
             <button
-               className='px-4 py-2 bg-secondary text-primary rounded-sm mt-3 focus:scale-95 font-semibold'
+               className='px-4 py-2 bg-primary text-neutral rounded-sm mt-3 focus:scale-95 font-semibold'
                onClick={handleAddToWatchList}>
                Add to WatchList
             </button>
