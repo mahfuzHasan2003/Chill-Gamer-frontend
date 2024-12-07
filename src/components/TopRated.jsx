@@ -12,8 +12,8 @@ const TopRated = () => {
    }, []);
 
    return (
-      <div className='my-10'>
-         <h2 className='font-semibold text-4xl'>Top rated ever!!</h2>
+      <div className='my-20'>
+         <h2 className='font-semibold text-4xl'>Top rated ever</h2>
          <div className='mt-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5'>
             {topRatedReviews.map((review) => (
                <SingleReviewCard key={review._id} review={review} />
