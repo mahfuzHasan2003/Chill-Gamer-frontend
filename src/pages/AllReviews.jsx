@@ -9,14 +9,12 @@ const AllReviews = () => {
    const [filterBy, setFilterBy] = useState("");
    const [sortWith, setSortWith] = useState("");
    useEffect(() => {
-      setTimeout(() => {
-         axios
-            .get(
-               `https://chill-gamer-backend.vercel.app/reviews?filterBy=${filterBy}&sortBy=${sortWith}`
-            )
-            .then((data) => setAllReviews(data.data))
-            .then(() => setLoadingAllReviews(false));
-      }, 1000);
+      axios
+         .get(
+            `https://chill-gamer-backend.vercel.app/reviews?filterBy=${filterBy}&sortBy=${sortWith}`
+         )
+         .then((data) => setAllReviews(data.data))
+         .then(() => setLoadingAllReviews(false));
    }, [filterBy, sortWith]);
    const handleFiltering = (e) => setFilterBy(e.target.value);
    const handleSorting = (e) => setSortWith(e.target.value);
@@ -53,7 +51,7 @@ const AllReviews = () => {
             </div>
          </div>
          {allReviews.length > 0 ? (
-            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-5'>
+            <div className='columns-1 md:columns-2 lg:columns-3 *:break-inside-avoid gap-5 space-y-4 mt-5'>
                {allReviews.map((review) => (
                   <SingleReviewCard review={review} key={review._id} />
                ))}
