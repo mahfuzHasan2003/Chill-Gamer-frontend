@@ -1,9 +1,13 @@
+import { Zoom } from "react-awesome-reveal";
+
 const FAQsPage = () => {
    return (
       <div className='my-10 space-y-2'>
-         <h2 className='font-semibold text-4xl mb-10 text-center'>
-            Got Questions? We Have Answers!
-         </h2>
+         <Zoom>
+            <h2 className='font-semibold text-4xl mb-10 text-center'>
+               Got Questions? We Have Answers!
+            </h2>
+         </Zoom>
          <div className='collapse collapse-plus bg-base-200 rounded-sm'>
             <input type='radio' name='faqs' defaultChecked />
             <div className='collapse-title text-xl font-medium'>

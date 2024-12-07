@@ -32,7 +32,9 @@ const Login = () => {
          .then(() => {
             navigate("/");
          })
-         .catch((err) => setError(err.code));
+         .catch((err) => {
+            setError(err.code);
+         });
    };
    return (
       <div className='my-20'>
