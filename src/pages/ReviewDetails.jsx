@@ -38,7 +38,7 @@ const ReviewDetails = () => {
          rating,
          gameType,
       };
-      fetch("http://localhost:3000/watchList/", {
+      fetch("https://chill-gamer-backend.vercel.app/watchList/", {
          method: "POST",
          headers: { "content-type": "application/json" },
          body: JSON.stringify(newWatchListData),

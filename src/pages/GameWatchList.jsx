@@ -7,7 +7,7 @@ const GameWatchList = () => {
    const [myWatchList, setMyWatchList] = useState([]);
    useEffect(() => {
       axios
-         .get(`http://localhost:3000/watchList/${user.email}`)
+         .get(`https://chill-gamer-backend.vercel.app/watchList/${user.email}`)
          .then((data) => setMyWatchList(data.data));
    }, []);
 

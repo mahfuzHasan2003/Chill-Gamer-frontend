@@ -1,9 +1,11 @@
 import { Divider } from "@mui/material";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../providers/AuthDataProvider";
 import { Link, useNavigate } from "react-router-dom";
+import { IoMdEye, IoMdEyeOff } from "react-icons/io";
 const Login = () => {
    const navigate = useNavigate();
+   const [showPass, setShowPass] = useState(false);
    const {
       logInWithGoogle,
       error,
@@ -74,13 +76,26 @@ const Login = () => {
                <label htmlFor='password'>
                   Password<span className='text-red-500'>*</span>
                </label>
-               <input
-                  type='password'
-                  id='password'
-                  name='password'
-                  placeholder='password'
-                  className='bg-transparent p-2 border rounded-sm'
-               />
+               <div className='relative'>
+                  <input
+                     type={showPass ? "text" : "password"}
+                     id='password'
+                     name='password'
+                     placeholder='password'
+                     className='bg-transparent p-2 border rounded-sm relative w-full'
+                  />
+                  {showPass ? (
+                     <IoMdEye
+                        className='absolute right-5 top-1/2 -translate-y-1/2 cursor-pointer'
+                        onClick={() => setShowPass((prev) => !prev)}
+                     />
+                  ) : (
+                     <IoMdEyeOff
+                        className='absolute right-5 top-1/2 -translate-y-1/2 cursor-pointer'
+                        onClick={() => setShowPass((prev) => !prev)}
+                     />
+                  )}
+               </div>
             </div>
             {error && (
                <p className='text-sm text-red-500 md:col-span-2'>{error}</p>

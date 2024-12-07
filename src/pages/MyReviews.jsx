@@ -10,7 +10,9 @@ const MyReviews = () => {
    const [myReviews, setMyReviews] = useState([]);
    useEffect(() => {
       axios
-         .get(`http://localhost:3000/my-reviews/user/${user.email}`)
+         .get(
+            `https://chill-gamer-backend.vercel.app/my-reviews/user/${user.email}`
+         )
          .then((data) => setMyReviews(data.data));
    }, [user.email, myReviews]);
    const swalWithBootstrapButtons = Swal.mixin({
@@ -65,7 +67,7 @@ const MyReviews = () => {
                                           .then((result) => {
                                              if (result.isConfirmed) {
                                                 fetch(
-                                                   `http://localhost:3000/review/${singleReview._id}`,
+                                                   `https://chill-gamer-backend.vercel.app/review/${singleReview._id}`,
                                                    {
                                                       method: "DELETE",
                                                    }

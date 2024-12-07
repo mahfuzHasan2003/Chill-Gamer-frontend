@@ -48,7 +48,7 @@ const UpdateReview = () => {
          review: userReview,
          rating,
       };
-      fetch(`http://localhost:3000/review/${_id}`, {
+      fetch(`https://chill-gamer-backend.vercel.app/review/${_id}`, {
          method: "PATCH",
          headers: { "content-type": "application/json" },
          body: JSON.stringify(updatedReview),

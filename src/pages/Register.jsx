@@ -1,10 +1,14 @@
 import { Divider } from "@mui/material";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../providers/AuthDataProvider";
 import { Link, useNavigate } from "react-router-dom";
+import { IoMdEye, IoMdEyeOff } from "react-icons/io";
 
 const Register = () => {
    const navigate = useNavigate();
+   const [showPass, setShowPass] = useState(false);
+   const [confirmPass, setConfirmPass] = useState(false);
+
    const {
       logInWithGoogle,
       error,
@@ -119,25 +123,51 @@ const Register = () => {
                <label htmlFor='password'>
                   Password<span className='text-red-500'>*</span>
                </label>
-               <input
-                  type='password'
-                  id='password'
-                  name='password'
-                  placeholder='password'
-                  className='bg-transparent p-2 border rounded-sm'
-               />
+               <div className='relative'>
+                  <input
+                     type={showPass ? "text" : "password"}
+                     id='password'
+                     name='password'
+                     placeholder='password'
+                     className='bg-transparent p-2 border rounded-sm w-full'
+                  />
+                  {showPass ? (
+                     <IoMdEye
+                        className='absolute right-5 top-1/2 -translate-y-1/2 cursor-pointer'
+                        onClick={() => setShowPass((prev) => !prev)}
+                     />
+                  ) : (
+                     <IoMdEyeOff
+                        className='absolute right-5 top-1/2 -translate-y-1/2 cursor-pointer'
+                        onClick={() => setShowPass((prev) => !prev)}
+                     />
+                  )}
+               </div>
             </div>
             <div className='flex flex-col gap-1'>
                <label htmlFor='confirmPassword'>
                   Confirm Password<span className='text-red-500'>*</span>
                </label>
-               <input
-                  type='password'
-                  id='confirmPassword'
-                  name='confirmPassword'
-                  placeholder='confirm password'
-                  className='bg-transparent p-2 border rounded-sm'
-               />
+               <div className='relative'>
+                  <input
+                     type={confirmPass ? "text" : "password"}
+                     id='confirmPassword'
+                     name='confirmPassword'
+                     placeholder='confirm password'
+                     className='bg-transparent p-2 border rounded-sm w-full'
+                  />
+                  {confirmPass ? (
+                     <IoMdEye
+                        className='absolute right-5 top-1/2 -translate-y-1/2 cursor-pointer'
+                        onClick={() => setConfirmPass((prev) => !prev)}
+                     />
+                  ) : (
+                     <IoMdEyeOff
+                        className='absolute right-5 top-1/2 -translate-y-1/2 cursor-pointer'
+                        onClick={() => setConfirmPass((prev) => !prev)}
+                     />
+                  )}
+               </div>
             </div>
             {error && (
                <p className='text-sm text-red-500 md:col-span-2'>{error}</p>

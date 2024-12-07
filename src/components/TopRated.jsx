@@ -6,7 +6,7 @@ const TopRated = () => {
    const [topRatedReviews, setTopRatedReviews] = useState([]);
    useEffect(() => {
       axios
-         .get("http://localhost:3000/top-rated-ever")
+         .get("https://chill-gamer-backend.vercel.app/top-rated-ever")
          .then((response) => setTopRatedReviews(response.data))
          .catch((err) => console.error(err));
    }, []);
