@@ -89,15 +89,13 @@ const Navbar = () => {
                         }>
                         All Reviews
                      </NavLink>
-                     {user && (
-                        <NavLink
-                           to='/add-review'
-                           onClick={() =>
-                              setIsDraweOpen((prevState) => !prevState)
-                           }>
-                           Add Review
-                        </NavLink>
-                     )}
+                     <NavLink
+                        to='/add-review'
+                        onClick={() =>
+                           setIsDraweOpen((prevState) => !prevState)
+                        }>
+                        Add Review
+                     </NavLink>
                      {user && (
                         <NavLink
                            to='/my-reviews'
@@ -129,7 +127,7 @@ const Navbar = () => {
          <div className='hidden lg:inline-flex gap-3 *:px-2'>
             <NavLink to='/'>Home</NavLink>
             <NavLink to='/all-reviews'>All Reviews</NavLink>
-            {user && <NavLink to='/add-review'>Add Review</NavLink>}
+            <NavLink to='/add-review'>Add Review</NavLink>
             {user && <NavLink to='/my-reviews'>My Reviews</NavLink>}
             {user && <NavLink to='/my-watchList'>Game WatchList</NavLink>}
          </div>
