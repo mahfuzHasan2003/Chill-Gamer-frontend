@@ -196,7 +196,7 @@ const Register = () => {
                   id='submit'
                   name='submit'
                   value='Register'
-                  className='bg-primary py-2 text-neutral rounded-sm font-bold text-lg min-w-40 focus:scale-95'
+                  className='bg-primary py-2 text-neutral rounded-sm font-bold text-lg min-w-40 focus:scale-95 cursor-pointer'
                />
                <p className='flex gap-1 mt-5 md:mt-0'>
                   Already have an account?

@@ -127,7 +127,7 @@ const Login = () => {
                   id='submit'
                   name='submit'
                   value='Login'
-                  className='bg-primary py-2 rounded-sm text-neutral font-bold text-lg min-w-40 focus:scale-95'
+                  className='bg-primary py-2 rounded-sm text-neutral font-bold text-lg min-w-40 focus:scale-95 cursor-pointer'
                />
                <div>
                   <p className='flex gap-1 mt-5 md:mt-0'>
