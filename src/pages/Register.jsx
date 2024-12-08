@@ -3,6 +3,7 @@ import { useContext, useState } from "react";
 import { AuthContext } from "../providers/AuthDataProvider";
 import { Link, useNavigate } from "react-router-dom";
 import { IoMdEye, IoMdEyeOff } from "react-icons/io";
+import { closeSnackbar, enqueueSnackbar } from "notistack";
 
 const Register = () => {
    const navigate = useNavigate();
@@ -19,6 +20,15 @@ const Register = () => {
       isValidPassword,
       isValidPhotoURL,
    } = useContext(AuthContext);
+   const action = (snackbarId) => (
+      <button
+         className='text-2xl'
+         onClick={() => {
+            closeSnackbar(snackbarId);
+         }}>
+         ×
+      </button>
+   );
    const handleRegister = (e) => {
       e.preventDefault();
       setError("");
@@ -41,7 +51,7 @@ const Register = () => {
       }
       if (!isValidPassword(password)) {
          setError(
-            "Password must be have at least one upercase character, one lowercase character, one special character, one digit and length 6"
+            "Password must be have at least one upercase character, one lowercase character and length 6"
          );
          return;
       }
@@ -51,10 +61,18 @@ const Register = () => {
       }
 
       registerWithEmail(email, password)
-         .then(() => {
-            updateUserProfile({ displayName, photoURL });
-            navigate("/");
-         })
+         .then(() => updateUserProfile({ displayName, photoURL }))
+         .then(() =>
+            enqueueSnackbar("Successfully registered.", {
+               variant: "success",
+               action,
+               anchorOrigin: {
+                  vertical: "bottom",
+                  horizontal: "right",
+               },
+            })
+         )
+         .then(() => navigate("/"))
          .catch((err) => setError(err.code));
    };
    return (

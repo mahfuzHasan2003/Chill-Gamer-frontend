@@ -19,8 +19,8 @@ const AuthDataProvider = ({ children }) => {
    const [error, setError] = useState("");
 
    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-   const passwordRegex =
-      /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
+   const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])[A-Za-z\d@$!%*?&]{6,}$/;
+
    const urlRegex =
       /^(https?:\/\/)?(www\.)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(:\d+)?(\/[^\s]*)?$/;
    const isValidEmail = (email) => emailRegex.test(email);
@@ -40,7 +40,7 @@ const AuthDataProvider = ({ children }) => {
       return signInWithPopup(auth, googleProvider);
    };
    const logInWithEmail = (email, password) => {
-      setLoading(true);
+      // setLoading(true);
       return signInWithEmailAndPassword(auth, email, password);
    };
    useEffect(() => {

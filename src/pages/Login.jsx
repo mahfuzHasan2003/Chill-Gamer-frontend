@@ -3,6 +3,8 @@ import { useContext, useState } from "react";
 import { AuthContext } from "../providers/AuthDataProvider";
 import { Link, useNavigate } from "react-router-dom";
 import { IoMdEye, IoMdEyeOff } from "react-icons/io";
+import { closeSnackbar, enqueueSnackbar } from "notistack";
+
 const Login = () => {
    const navigate = useNavigate();
    const [showPass, setShowPass] = useState(false);
@@ -14,6 +16,15 @@ const Login = () => {
       isValidPassword,
       logInWithEmail,
    } = useContext(AuthContext);
+   const action = (snackbarId) => (
+      <button
+         className='text-2xl'
+         onClick={() => {
+            closeSnackbar(snackbarId);
+         }}>
+         ×
+      </button>
+   );
    const handleLogin = (e) => {
       e.preventDefault();
       setError("");
@@ -29,9 +40,17 @@ const Login = () => {
       }
 
       logInWithEmail(email, password)
-         .then(() => {
-            navigate("/");
-         })
+         .then(() =>
+            enqueueSnackbar("Successfully logged in.", {
+               variant: "success",
+               action,
+               anchorOrigin: {
+                  vertical: "bottom",
+                  horizontal: "right",
+               },
+            })
+         )
+         .then(() => navigate("/"))
          .catch((err) => {
             setError(err.code);
          });
